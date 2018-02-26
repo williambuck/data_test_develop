@@ -137,28 +137,6 @@ class XML_to_CSV(object):
         return e_txt
 
 
-    def parse_details(self, n_listings=1):
-        '''Prints out the element tags and text of a specified number of
-        listings.'''
-
-        count = 0
-        for home in self.listing_elements:
-            for detail in list(home):
-                print '\n----------------\n', detail.tag, '\n----------------\n'
-
-                for sub_detail in list(detail):
-                    if sub_detail.text == '\n\t' or sub_detail.text == '\n':
-                        sub_tag_text = [{sub_text.tag: sub_text.text}
-                                        for sub_text in sub_detail[:]]
-                        print '{}: "{}"'.format(sub_detail.tag, sub_tag_text)
-                    else:
-                        print '{}: "{}"'.format(sub_detail.tag, sub_detail.text)
-
-            count += 1
-            if count >= n_listings:
-                return
-
-
 x2c = XML_to_CSV(url)
 read_pd_df = pd.read_csv('final_csv.csv', index_col=0)
 print read_pd_df
